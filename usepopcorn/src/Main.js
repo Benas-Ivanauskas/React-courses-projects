@@ -27,15 +27,21 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export function Main({ movies }) {
+  const [watched, setWatched] = useState(tempWatchedData);
   return (
     <main className="main">
-      <ListBox movies={movies} />
-      <WatchedBox />
+      <ListBox>
+        <MovieList movies={movies} />
+      </ListBox>
+      <WatchedBox>
+        <WatchedSummary watched={watched} />
+        <WatchedMovieList watched={watched} />
+      </WatchedBox>
     </main>
   );
 }
 
-function ListBox({ movies }) {
+function ListBox({ children }) {
   const [isOpen1, setIsOpen1] = useState(true);
   return (
     <div className="box">
@@ -45,7 +51,7 @@ function ListBox({ movies }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <MovieList movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 }
@@ -74,10 +80,8 @@ function Movie({ movie }) {
   );
 }
 
-function WatchedBox() {
+function WatchedBox({ children }) {
   const [isOpen2, setIsOpen2] = useState(true);
-  const [watched, setWatched] = useState(tempWatchedData);
-
   return (
     <div className="box">
       <button
@@ -86,12 +90,7 @@ function WatchedBox() {
       >
         {isOpen2 ? "–" : "+"}
       </button>
-      {isOpen2 && (
-        <>
-          <WatchedSummary watched={watched} />
-          <WatchedMovieList watched={watched} />
-        </>
-      )}
+      {isOpen2 && children}
     </div>
   );
 }

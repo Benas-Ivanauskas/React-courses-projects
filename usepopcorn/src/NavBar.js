@@ -1,12 +1,10 @@
 import { useState, movies } from "react";
 
 export function NavBar({ movies }) {
-  const [query, setQuery] = useState("");
-
   return (
     <nav className="nav-bar">
       <Logo />
-      <Search query={query} setQuery={setQuery} />
+      <Search />
       <NumResults movies={movies} />
     </nav>
   );
@@ -20,7 +18,8 @@ function Logo() {
     </div>
   );
 }
-function Search({ query, setQuery }) {
+function Search() {
+  const [query, setQuery] = useState("");
   return (
     <input
       className="search"
