@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, movies } from "react";
 
-export function NavBar() {
+export function NavBar({ movies }) {
   const [query, setQuery] = useState("");
 
   return (
     <nav className="nav-bar">
       <Logo />
       <Search query={query} setQuery={setQuery} />
-      <NumResults />
+      <NumResults movies={movies} />
     </nav>
   );
 }
@@ -32,10 +32,10 @@ function Search({ query, setQuery }) {
   );
 }
 
-function NumResults() {
+function NumResults({ movies }) {
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{movies.length}</strong> results
     </p>
   );
 }
